@@ -1,5 +1,4 @@
-# Simple-Jenkins-DooD
-I want to keep my environment **clean**. This helps me.
+# Simple-Jenkins-DooD with docker-compose
 
 This makes you able to run Jenkins in Docker and to run new Docker containers for Jenkins jobs in your docker host.
 for example...
@@ -15,26 +14,22 @@ This dockerfile is based on [jenkins/jenkins](https://hub.docker.com/r/jenkins/j
 - Pull
 
 ```
-$ docker pull toto1310/simple-jenkins-dood
+$ docker pull kannach/jenkins-dood-compose
 ```
 
 - Build
 
 ```
-$ git clone https://github.com/toto1310/Simple-Jenkins-DooD
-$ cd Simple-Jenkins-DooD
-$ docker build -t toto1310/simple-jenkins-dood .
+$ git clone https://github.com/kannach/Jenkins-dockercompose-DooD.git
+$ cd Jenkins-dockercompose-DooD
+$ docker build -t kannach/jenkins-dood-compose .
 ```
 
 ### 2. Create docker container and Start Jenkins
 
 ```
-$ docker run -d --name jenkins \
- -v /var/run/docker.sock:/var/run/docker.sock \
- -v ${PWD}/jenkins_home:/var/jenkins_home \
- -p 8080:8080 \
- -p 50000:50000 \
- toto1310/simple-jenkins-dood
+$ docker run -d --name jenkins -p 8080:8080  -p 127.0.0.1:50000:50000 -v /data/docker/jenkins:/var/jenkins_home:z -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -t kannach/jenkins-dood-compose
+
 ```
 
 After a while, you can access http://localhost:8080
